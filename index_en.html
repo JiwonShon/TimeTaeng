@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIMETAENG // RESEARCHER'S 10-MIN DOCK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --border-dark: #000000;
+      --border-light: #30363d;
+      --primary: #58a6ff;
+      --accent: #39d353;
+      --warning: #f1e05a;
+      --danger: #f85149;
+      --text: #c9d1d9;
+      --text-dim: #8b949e;
+      --past-slot: #1c2128;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Share Tech Mono', monospace;
+      width: 100vw;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    body::before {
+      content: " ";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+      background-size: 100% 4px;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0d1117; }
+    ::-webkit-scrollbar-thumb { background: #30363d; border: 1px solid #000; }
+    .pixel-box {
+      background: var(--card-bg);
+      border: 2px solid var(--border-dark);
+      box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.08), 2px 2px 0px #000;
+      padding: 8px;
+      margin: 4px 6px;
+    }
+    header {
+      background: #090d13;
+      border-bottom: 2px solid #000;
+      padding: 8px 8px 6px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .app-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      text-shadow: 2px 2px 0 #000;
+      letter-spacing: -0.5px;
+    }
+    .clock-badge {
+      font-size: 11px;
+      background: #000;
+      color: var(--warning);
+      border: 1px solid var(--border-light);
+      padding: 2px 6px;
+      font-variant-numeric: tabular-nums;
+    }
+    .date-status { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); }
+    .memo-section { background: #11161d; }
+    .section-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7.5px;
+      color: var(--warning);
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .top-memo-input {
+      width: 100%;
+      height: 38px;
+      background: #090d13;
+      border: 1px solid #30363d;
+      color: #7ee787;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      padding: 5px 7px;
+      resize: none;
+      outline: none;
+      line-height: 1.35;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    .top-memo-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 4px rgba(57, 211, 83, 0.3);
+    }
+    .top-memo-input::placeholder { color: #484f58; font-size: 10px; }
+    .palette-box { display: flex; flex-direction: column; gap: 5px; font-size: 10px; }
+    .chip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+    .chip-btn {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 9px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #fff;
+      padding: 4px 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      box-shadow: 1px 1px 0 #000;
+      white-space: nowrap;
+    }
+    .chip-btn:active { transform: translate(1px, 1px); box-shadow: none; }
+    .chip-btn.active { border-color: #fff; background: #30363d; outline: 1px dashed var(--accent); font-weight: bold; }
+    .chip-dot { width: 7px; height: 7px; display: inline-block; border: 1px solid #000; flex-shrink: 0; }
+    .custom-input-row { display: flex; gap: 4px; align-items: center; margin-top: 2px; }
+    input[type="text"] {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 3px 6px;
+      flex: 1;
+      outline: none;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    input[type="text"]:focus { border-color: var(--primary); }
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: 1px solid #000;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      background: none;
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    input[type="color"]::-webkit-color-swatch { border: none; }
+    .timeline-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      color: var(--primary);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .matrix-container { display: flex; flex-direction: column; gap: 2px; }
+    .hour-row { display: flex; align-items: center; gap: 4px; }
+    .hour-label { width: 38px; font-size: 9px; color: var(--text-dim); text-align: right; flex-shrink: 0; }
+    .slot-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; flex: 1; }
+    .slot { aspect-ratio: 1.5 / 1; background: #1c2128; border: 1px solid #0d1117; cursor: pointer; position: relative; }
+    .slot:hover { outline: 1px solid #ffffff; z-index: 10; }
+    .slot.past {
+      filter: grayscale(85%) brightness(40%);
+      background-image: repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 2px, transparent 2px, transparent 4px);
+    }
+    .slot.current {
+      outline: 2px solid #ffffff !important;
+      animation: pixel-pulse 0.9s infinite alternate;
+      z-index: 11;
+    }
+    @keyframes pixel-pulse { 0% { box-shadow: 0 0 2px #fff; } 100% { box-shadow: 0 0 7px var(--accent); } }
+    .tasks-header { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--warning); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .task-item { background: #0d1117; border: 1px solid #30363d; padding: 5px 6px; margin-bottom: 4px; display: flex; flex-direction: column; gap: 3px; }
+    .task-meta { display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+    .task-badge { display: flex; align-items: center; gap: 5px; font-weight: bold; color: #fff; }
+    .task-dur { color: var(--text-dim); font-size: 9px; }
+    .slider-row { display: flex; align-items: center; gap: 5px; }
+    input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; }
+    .pct-val { width: 34px; text-align: right; font-size: 11px; font-weight: bold; color: var(--accent); }
+    .quick-btns { display: flex; gap: 2px; }
+    .mini-btn { background: #21262d; border: 1px solid #30363d; color: #fff; font-size: 8px; padding: 2px 4px; cursor: pointer; }
+    .mini-btn:hover { background: #30363d; }
+    .review-box { font-size: 10px; }
+    .score-banner { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .rank-badge { font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent); text-shadow: 1px 1px 0 #000; }
+    textarea {
+      width: 100%;
+      height: 48px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 10px;
+      padding: 5px;
+      resize: none;
+      outline: none;
+      margin-bottom: 5px;
+      user-select: text;
+      -webkit-user-select: text;
+    }
+    textarea:focus { border-color: var(--primary); }
+    .action-btn {
+      width: 100%;
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: var(--text);
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 7px 4px;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 #000;
+    }
+    .action-btn:hover { background: #30363d; color: #fff; }
+    .action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-row">
+      <div class="app-title">★ TIMETAENG</div>
+      <div class="clock-badge" id="liveClock">00:00:00</div>
+    </div>
+    <div class="date-status">
+      <span id="dateDisplay">YYYY-MM-DD</span>
+      <span id="statSummary">0 MIN PLANNED</span>
+    </div>
+  </header>
+
+  <!-- 1. Top Quick Memo Slot (TODAY'S MAIN FOCUS // TODO) -->
+  <div class="pixel-box memo-section">
+    <div class="section-label">
+      <span>🎯 TODAY'S FOCUS // TODO</span>
+      <span style="font-size: 6.5px; color: var(--text-dim);">AUTO-SAVED</span>
+    </div>
+    <textarea id="mainTodoInput" class="top-memo-input" placeholder="Primary quest / core deliverables for today..."></textarea>
+  </div>
+
+  <!-- 2. Research Brushes -->
+  <div class="pixel-box palette-box">
+    <div style="color: var(--text-dim); font-size: 8px; margin-bottom: 1px;">RESEARCH QUEST BRUSH</div>
+    <div class="chip-grid" id="presetChips">
+      <button class="chip-btn active" data-color="#58a6ff" data-name="PaperTaeng">
+        <span class="chip-dot" style="background:#58a6ff;"></span>Paper
+      </button>
+      <button class="chip-btn" data-color="#39d353" data-name="CodeTaeng">
+        <span class="chip-dot" style="background:#39d353;"></span>Code
+      </button>
+      <button class="chip-btn" data-color="#00f2fe" data-name="DataTaeng">
+        <span class="chip-dot" style="background:#00f2fe;"></span>Data
+      </button>
+      <button class="chip-btn" data-color="#bc8cff" data-name="HobbyTaeng">
+        <span class="chip-dot" style="background:#bc8cff;"></span>Hobby
+      </button>
+      <button class="chip-btn" data-color="#f1e05a" data-name="MeetTaeng">
+        <span class="chip-dot" style="background:#f1e05a;"></span>Meet
+      </button>
+      <button class="chip-btn" data-color="#d2a8ff" data-name="DutyTaeng">
+        <span class="chip-dot" style="background:#d2a8ff;"></span>Duty
+      </button>
+      <button class="chip-btn" data-color="#ff7b72" data-name="PlayTaeng">
+        <span class="chip-dot" style="background:#ff7b72;"></span>Play
+      </button>
+      <button class="chip-btn" data-color="#ff9b54" data-name="FitTaeng">
+        <span class="chip-dot" style="background:#ff9b54;"></span>Fit
+      </button>
+    </div>
+
+    <div class="custom-input-row">
+      <input type="text" id="customTaskInput" placeholder="Custom task..." value="PaperTaeng">
+      <input type="color" id="customColorPicker" value="#58a6ff">
+      <button class="chip-btn" id="eraserBtn" data-color="" data-name="" style="color:#f85149; padding: 3px 6px;">
+        ✕ ERASE
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Timeline -->
+  <div class="pixel-box">
+    <div class="timeline-title">
+      <span>TIMELINE [10M / BLOCK]</span>
+      <span style="font-size: 7px; color: var(--text-dim);">08:00 - 24:00</span>
+    </div>
+    <div class="matrix-container" id="matrixContainer"></div>
+  </div>
+
+  <!-- 4. Today's Quests -->
+  <div class="pixel-box">
+    <div class="tasks-header">
+      <span>TODAY'S QUESTS</span>
+      <span id="taskCountBadge">0 QUESTS</span>
+    </div>
+    <div id="taskList">
+      <div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">
+        PAINT TIMELINE SLOTS ABOVE TO GENERATE QUESTS!
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Daily Review -->
+  <div class="pixel-box review-box">
+    <div class="score-banner">
+      <span style="font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--text-dim);">DAILY RATING</span>
+      <span class="rank-badge" id="rankBadge">RANK --</span>
+    </div>
+    <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 5px; display: flex; justify-content: space-between;">
+      <span>AVG ACHIEVEMENT:</span>
+      <strong id="avgScoreDisplay" style="color: var(--accent);">0%</strong>
+    </div>
+
+    <textarea id="feedbackText" placeholder="Write research insights, debugging logs, tomorrow's plan..."></textarea>
+    <button class="action-btn" onclick="copyDailySummary()">📋 COPY LOG SUMMARY</button>
+  </div>
+
+  <script>
+    const START_HOUR = 8;
+    const END_HOUR = 24;
+    const TOTAL_HOURS = END_HOUR - START_HOUR;
+    const TOTAL_SLOTS = TOTAL_HOURS * 6;
+
+    let currentBrush = { name: "PaperTaeng", color: "#58a6ff" };
+    let isMouseDown = false;
+
+    function getLocalDateStr(d = new Date()) {
+      return d.toLocaleDateString('sv-SE');
+    }
+    const todayKey = getLocalDateStr();
+
+    let slotData = JSON.parse(localStorage.getItem(`timetaeng_en_slots_${todayKey}`)) || {};
+    let taskProgress = JSON.parse(localStorage.getItem(`timetaeng_en_progress_${todayKey}`)) || {};
+    let savedNote = localStorage.getItem(`timetaeng_en_note_${todayKey}`) || "";
+    let savedTodo = localStorage.getItem(`timetaeng_en_main_todo_${todayKey}`) || "";
+
+    const mainTodoInput = document.getElementById('mainTodoInput');
+    mainTodoInput.value = savedTodo;
+    mainTodoInput.addEventListener('input', (e) => {
+      localStorage.setItem(`timetaeng_en_main_todo_${todayKey}`, e.target.value);
+    });
+
+    document.getElementById('feedbackText').value = savedNote;
+    document.getElementById('feedbackText').addEventListener('input', (e) => {
+      localStorage.setItem(`timetaeng_en_note_${todayKey}`, e.target.value);
+    });
+
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let actx = null;
+    function playBeep(freq = 440, type = 'square', duration = 0.04) {
+      try {
+        if (!actx) actx = new AudioCtx();
+        const osc = actx.createOscillator();
+        const gain = actx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, actx.currentTime);
+        gain.gain.setValueAtTime(0.04, actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(actx.destination);
+        osc.start();
+        osc.stop(actx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    const presetChips = document.querySelectorAll('.chip-btn:not(#eraserBtn)');
+    const eraserBtn = document.getElementById('eraserBtn');
+    const customInput = document.getElementById('customTaskInput');
+    const colorPicker = document.getElementById('customColorPicker');
+
+    function setActiveBtn(targetBtn) {
+      document.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      if (targetBtn) targetBtn.classList.add('active');
+    }
+
+    presetChips.forEach(btn => {
+      btn.addEventListener('click', () => {
+        setActiveBtn(btn);
+        currentBrush = { name: btn.dataset.name, color: btn.dataset.color };
+        customInput.value = btn.dataset.name;
+        colorPicker.value = btn.dataset.color;
+        playBeep(580, 'triangle', 0.04);
+      });
+    });
+
+    eraserBtn.addEventListener('click', () => {
+      setActiveBtn(eraserBtn);
+      currentBrush = { name: "", color: "" };
+      playBeep(220, 'sawtooth', 0.05);
+    });
+
+    customInput.addEventListener('input', () => {
+      currentBrush.name = customInput.value.trim();
+      setActiveBtn(null);
+    });
+    colorPicker.addEventListener('input', () => {
+      currentBrush.color = colorPicker.value;
+      setActiveBtn(null);
+    });
+
+    const matrixContainer = document.getElementById('matrixContainer');
+    function buildMatrix() {
+      matrixContainer.innerHTML = '';
+      for (let h = START_HOUR; h < END_HOUR; h++) {
+        const row = document.createElement('div');
+        row.className = 'hour-row';
+
+        const label = document.createElement('div');
+        label.className = 'hour-label';
+        label.innerText = `${String(h).padStart(2, '0')}:00`;
+        row.appendChild(label);
+
+        const slotRow = document.createElement('div');
+        slotRow.className = 'slot-row';
+
+        for (let s = 0; s < 6; s++) {
+          const slotIdx = (h - START_HOUR) * 6 + s;
+          const slot = document.createElement('div');
+          slot.className = 'slot';
+          slot.id = `slot-${slotIdx}`;
+
+          if (slotData[slotIdx]) {
+            slot.style.backgroundColor = slotData[slotIdx].color;
+            slot.title = `${slotData[slotIdx].name} (${formatSlotTime(slotIdx)})`;
+          }
+
+          slot.addEventListener('mousedown', () => {
+            isMouseDown = true;
+            paintSlot(slotIdx);
+          });
+          slot.addEventListener('mouseenter', () => {
+            if (isMouseDown) paintSlot(slotIdx);
+          });
+
+          slotRow.appendChild(slot);
+        }
+
+        row.appendChild(slotRow);
+        matrixContainer.appendChild(row);
+      }
+    }
+
+    window.addEventListener('mouseup', () => { isMouseDown = false; });
+
+    function formatSlotTime(idx) {
+      const totalMin = START_HOUR * 60 + idx * 10;
+      const h = Math.floor(totalMin / 60);
+      const m = totalMin % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    function paintSlot(idx) {
+      const slot = document.getElementById(`slot-${idx}`);
+      if (!currentBrush.name || !currentBrush.color) {
+        delete slotData[idx];
+        slot.style.backgroundColor = '';
+        slot.removeAttribute('title');
+        playBeep(240, 'sine', 0.03);
+      } else {
+        slotData[idx] = { name: currentBrush.name, color: currentBrush.color };
+        slot.style.backgroundColor = currentBrush.color;
+        slot.title = `${currentBrush.name} (${formatSlotTime(idx)})`;
+        playBeep(620, 'square', 0.03);
+      }
+      localStorage.setItem(`timetaeng_en_slots_${todayKey}`, JSON.stringify(slotData));
+      updateTasks();
+      updateClockAndStatuses();
+    }
+
+    function updateTasks() {
+      const taskListEl = document.getElementById('taskList');
+      const counts = {};
+
+      Object.values(slotData).forEach(item => {
+        if (!item.name) return;
+        if (!counts[item.name]) {
+          counts[item.name] = { count: 0, color: item.color };
+        }
+        counts[item.name].count++;
+      });
+
+      const taskNames = Object.keys(counts);
+      document.getElementById('taskCountBadge').innerText = `${taskNames.length} QUESTS`;
+
+      let totalMinutes = 0;
+      taskNames.forEach(name => totalMinutes += counts[name].count * 10);
+      document.getElementById('statSummary').innerText = `${totalMinutes} MIN PLANNED`;
+
+      if (taskNames.length === 0) {
+        taskListEl.innerHTML = `
+          <div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">
+            PAINT TIMELINE SLOTS ABOVE TO GENERATE QUESTS!
+          </div>
+        `;
+        document.getElementById('rankBadge').innerText = 'RANK --';
+        document.getElementById('avgScoreDisplay').innerText = '0%';
+        return;
+      }
+
+      taskListEl.innerHTML = '';
+      let sumPct = 0;
+
+      taskNames.forEach(name => {
+        const item = counts[name];
+        const minutes = item.count * 10;
+        const currentVal = taskProgress[name] !== undefined ? taskProgress[name] : 0;
+        sumPct += Number(currentVal);
+
+        const card = document.createElement('div');
+        card.className = 'task-item';
+        card.innerHTML = `
+          <div class="task-meta">
+            <span class="task-badge">
+              <span style="display:inline-block; width:8px; height:8px; background:${item.color}; border:1px solid #000;"></span>
+              ${name}
+            </span>
+            <span class="task-dur">${minutes}m (${item.count} blocks)</span>
+          </div>
+          <div class="slider-row">
+            <input type="range" min="0" max="100" value="${currentVal}" id="slider-${CSS.escape(name)}">
+            <span class="pct-val" id="val-${CSS.escape(name)}">${currentVal}%</span>
+            <div class="quick-btns">
+              <button class="mini-btn" onclick="setTaskPct('${name}', 50)">50%</button>
+              <button class="mini-btn" onclick="setTaskPct('${name}', 100)">100%</button>
+            </div>
+          </div>
+        `;
+        taskListEl.appendChild(card);
+
+        const slider = card.querySelector(`#slider-${CSS.escape(name)}`);
+        slider.addEventListener('input', (e) => {
+          setTaskPct(name, e.target.value);
+        });
+      });
+
+      const avg = Math.round(sumPct / taskNames.length);
+      document.getElementById('avgScoreDisplay').innerText = `${avg}%`;
+
+      let rank = 'RANK D';
+      if (avg >= 95) rank = 'RANK S [GOD]';
+      else if (avg >= 80) rank = 'RANK A [PRO]';
+      else if (avg >= 60) rank = 'RANK B [GOOD]';
+      else if (avg >= 40) rank = 'RANK C [FAIR]';
+      document.getElementById('rankBadge').innerText = rank;
+    }
+
+    window.setTaskPct = function(name, val) {
+      taskProgress[name] = Number(val);
+      localStorage.setItem(`timetaeng_en_progress_${todayKey}`, JSON.stringify(taskProgress));
+      const valEl = document.getElementById(`val-${CSS.escape(name)}`);
+      const sliderEl = document.getElementById(`slider-${CSS.escape(name)}`);
+      if (valEl) valEl.innerText = `${val}%`;
+      if (sliderEl) sliderEl.value = val;
+      playBeep(750, 'triangle', 0.03);
+      updateTasks();
+    };
+
+    function updateClockAndStatuses() {
+      const now = new Date();
+      const h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+
+      document.getElementById('liveClock').innerText = 
+        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      document.getElementById('dateDisplay').innerText = getLocalDateStr(now);
+
+      const currentSlotIdx = (h - START_HOUR) * 6 + Math.floor(m / 10);
+
+      for (let i = 0; i < TOTAL_SLOTS; i++) {
+        const slotEl = document.getElementById(`slot-${i}`);
+        if (!slotEl) continue;
+
+        if (i < currentSlotIdx) {
+          slotEl.classList.add('past');
+          slotEl.classList.remove('current');
+        } else if (i === currentSlotIdx) {
+          slotEl.classList.remove('past');
+          slotEl.classList.add('current');
+        } else {
+          slotEl.classList.remove('past');
+          slotEl.classList.remove('current');
+        }
+      }
+    }
+
+    window.copyDailySummary = function() {
+      const todo = document.getElementById('mainTodoInput').value;
+      const note = document.getElementById('feedbackText').value;
+      const avg = document.getElementById('avgScoreDisplay').innerText;
+      const rank = document.getElementById('rankBadge').innerText;
+      
+      let lines = [];
+      lines.push(`[★ TIMETAENG DAILY REPORT] ${todayKey}`);
+      lines.push(`OVERALL RATING: ${avg} (${rank})`);
+
+      if (todo.trim()) {
+        lines.push(`------------------------------`);
+        lines.push(`[TODAY'S MAIN FOCUS]\n${todo.trim()}`);
+      }
+
+      lines.push(`==============================`);
+      
+      const counts = {};
+      Object.values(slotData).forEach(item => {
+        if (!item.name) return;
+        counts[item.name] = (counts[item.name] || 0) + 10;
+      });
+
+      Object.keys(counts).forEach(name => {
+        const pct = taskProgress[name] !== undefined ? taskProgress[name] : 0;
+        lines.push(`• [${name}] Planned: ${counts[name]}m -> Done: ${pct}%`);
+      });
+
+      if (note.trim()) {
+        lines.push(`==============================`);
+        lines.push(`MEMO & REFLECTION:\n${note.trim()}`);
+      }
+
+      navigator.clipboard.writeText(lines.join('\n')).then(() => {
+        alert("Daily summary copied to clipboard!");
+        playBeep(880, 'sine', 0.08);
+      });
+    };
+
+    buildMatrix();
+    updateTasks();
+    updateClockAndStatuses();
+    setInterval(updateClockAndStatuses, 1000);
+  </script>
+</body>
+</html>
