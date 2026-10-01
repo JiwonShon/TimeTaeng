@@ -19,32 +19,22 @@
       --danger: #f85149;
       --text: #c9d1d9;
       --text-dim: #8b949e;
-      --past-slot: #1c2128;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
     body {
       background-color: var(--bg);
       color: var(--text);
       font-family: 'Share Tech Mono', monospace;
       width: 100vw;
-      height: 100vh;
+      min-height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       position: relative;
     }
-
     body::before {
-      content: " ";
+      content: ' ';
       position: fixed;
       inset: 0;
       background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
@@ -53,35 +43,25 @@
       pointer-events: none;
       opacity: 0.45;
     }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0d1117; }
     ::-webkit-scrollbar-thumb { background: #30363d; border: 1px solid #000; }
-
     .pixel-box {
       background: var(--card-bg);
       border: 2px solid var(--border-dark);
       box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.08), 2px 2px 0px #000;
-      padding: 8px;
-      margin: 4px 6px;
+      padding: 5px 7px;
+      margin: 1px 6px;
     }
-
     header {
-      background: #090d13;
+      background: #090d13
       border-bottom: 2px solid #000;
       padding: 8px 8px 6px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
-
-    .title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
+    .title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
     .app-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 11px;
@@ -89,7 +69,6 @@
       text-shadow: 2px 2px 0 #000;
       letter-spacing: -0.5px;
     }
-
     .clock-badge {
       font-size: 11px;
       background: #000;
@@ -98,18 +77,25 @@
       padding: 2px 6px;
       font-variant-numeric: tabular-nums;
     }
-
-    .date-status {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: var(--text-dim);
+    .date-status { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); }
+    
+    /* Top Focus Note Slot (3줄 확보 & 제목 정리) */
+    .memo-section { 
+      background: #11161d; 
+      margin-bottom: 0px !important;
+      padding-bottom: 2px !important;
     }
-
-    /* Top Focus Note Slot */
-    .memo-section {
-      background: #11161d;
+    .top-memo-input {
+      margin-bottom: 0 !important;
     }
+    .palette-box { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 3px; 
+      font-size: 10px; 
+      margin-top: 0px !important;
+      padding-top: 3px !important;
+    } 
     .section-label {
       font-family: 'Press Start 2P', monospace;
       font-size: 7.5px;
@@ -121,41 +107,25 @@
     }
     .top-memo-input {
       width: 100%;
-      height: 38px;
+      height: 60px;
       background: #090d13;
       border: 1px solid #30363d;
       color: #7ee787;
       font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
-      padding: 5px 7px;
+      padding: 6px 8px;
       resize: none;
       outline: none;
-      line-height: 1.35;
+      line-height: 1.4;
       user-select: text;
       -webkit-user-select: text;
     }
-    .top-memo-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 4px rgba(57, 211, 83, 0.3);
-    }
-    .top-memo-input::placeholder {
-      color: #484f58;
-      font-size: 10px;
-    }
+    .top-memo-input:focus { border-color: var(--accent); box-shadow: 0 0 4px rgba(57, 211, 83, 0.3); }
+    .top-memo-input::placeholder { color: #484f58; font-size: 10px; }
 
-    .palette-box {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      font-size: 10px;
-    }
-
-    .chip-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-    }
-
+    /* Palette */
+    .palette-box { display: flex; flex-direction: column; gap: 5px; font-size: 10px; }
+    .chip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
     .chip-btn {
       font-family: 'Share Tech Mono', monospace;
       font-size: 10px;
@@ -171,32 +141,10 @@
       box-shadow: 1px 1px 0 #000;
       white-space: nowrap;
     }
-    .chip-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: none;
-    }
-    .chip-btn.active {
-      border-color: #fff;
-      background: #30363d;
-      outline: 1px dashed var(--accent);
-      font-weight: bold;
-    }
-
-    .chip-dot {
-      width: 7px;
-      height: 7px;
-      display: inline-block;
-      border: 1px solid #000;
-      flex-shrink: 0;
-    }
-
-    .custom-input-row {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      margin-top: 2px;
-    }
-
+    .chip-btn:active { transform: translate(1px, 1px); box-shadow: none; }
+    .chip-btn.active { border-color: #fff; background: #30363d; outline: 1px dashed var(--accent); font-weight: bold; }
+    .chip-dot { width: 7px; height: 7px; display: inline-block; border: 1px solid #000; flex-shrink: 0; }
+    .custom-input-row { display: flex; gap: 4px; align-items: center; margin-top: 2px; }
     input[type="text"] {
       background: #0d1117;
       border: 1px solid #30363d;
@@ -209,10 +157,7 @@
       user-select: text;
       -webkit-user-select: text;
     }
-    input[type="text"]:focus {
-      border-color: var(--primary);
-    }
-
+    input[type="text"]:focus { border-color: var(--primary); }
     input[type="color"] {
       -webkit-appearance: none;
       border: 1px solid #000;
@@ -225,6 +170,7 @@
     input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
     input[type="color"]::-webkit-color-swatch { border: none; }
 
+    /* Timeline */
     .timeline-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 8px;
@@ -234,158 +180,132 @@
       justify-content: space-between;
       align-items: center;
     }
-
-    .matrix-container {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .hour-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .hour-label {
-      width: 38px;
-      font-size: 9px;
-      color: var(--text-dim);
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .slot-row {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 2px;
-      flex: 1;
-    }
-
-    .slot {
-      aspect-ratio: 1.5 / 1;
-      background: #1c2128;
-      border: 1px solid #0d1117;
-      cursor: pointer;
-      position: relative;
-    }
-    .slot:hover {
-      outline: 1px solid #ffffff;
-      z-index: 10;
-    }
-
+    .matrix-container { display: flex; flex-direction: column; gap: 2px; min-height: 200px; }
+    .hour-row { display: flex; align-items: center; gap: 4px; }
+    .hour-label { width: 38px; font-size: 9px; color: var(--text-dim); text-align: right; flex-shrink: 0; }
+    .slot-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; flex: 1; }
+    .slot { aspect-ratio: 1.5 / 1; background: #1c2128; border: 1px solid #0d1117; cursor: pointer; position: relative; }
+    .slot:hover { outline: 1px solid #ffffff; z-index: 10; }
     .slot.past {
       filter: grayscale(85%) brightness(40%);
-      background-image: repeating-linear-gradient(
-        -45deg,
-        rgba(0, 0, 0, 0.5),
-        rgba(0, 0, 0, 0.5) 2px,
-        transparent 2px,
-        transparent 4px
-      );
+      background-image: repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 2px, transparent 2px, transparent 4px);
     }
-
     .slot.current {
       outline: 2px solid #ffffff !important;
       animation: pixel-pulse 0.9s infinite alternate;
       z-index: 11;
     }
-    @keyframes pixel-pulse {
-      0% { box-shadow: 0 0 2px #fff; }
-      100% { box-shadow: 0 0 7px var(--accent); }
-    }
+    @keyframes pixel-pulse { 0% { box-shadow: 0 0 2px #fff; } 100% { box-shadow: 0 0 7px var(--accent); } }
 
-    .tasks-header {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      color: var(--warning);
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .task-item {
+    /* Today's Quests & Sub-Todos */
+    .tasks-header { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--warning); margin-bottom: 6px; display: flex; justify-content: space-between; }
+    .quest-card {
       background: #0d1117;
       border: 1px solid #30363d;
-      padding: 5px 6px;
-      margin-bottom: 4px;
+      padding: 6px 7px;
+      margin-bottom: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .quest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quest-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .pixel-checkbox {
+      width: 14px;
+      height: 14px;
+      background: #000;
+      border: 2px solid #30363d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent);
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+    .pixel-checkbox.checked { border-color: var(--accent); background: #112717; }
+    .quest-name { font-weight: bold; font-size: 11px; }
+    .quest-name.done { text-decoration: line-through; color: var(--text-dim); }
+
+    .subtodo-list {
       display: flex;
       flex-direction: column;
       gap: 3px;
+      padding-left: 20px;
     }
-
-    .task-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-    }
-
-    .task-badge {
+    .subtodo-item {
       display: flex;
       align-items: center;
       gap: 5px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .task-dur {
-      color: var(--text-dim);
-      font-size: 9px;
-    }
-
-    .slider-row {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    input[type="range"] {
-      flex: 1;
-      accent-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .pct-val {
-      width: 34px;
-      text-align: right;
-      font-size: 11px;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .quick-btns {
-      display: flex;
-      gap: 2px;
-    }
-    .mini-btn {
-      background: #21262d;
-      border: 1px solid #30363d;
-      color: #fff;
-      font-size: 8px;
-      padding: 2px 4px;
-      cursor: pointer;
-    }
-    .mini-btn:hover {
-      background: #30363d;
-    }
-
-    .review-box {
       font-size: 10px;
     }
-    .score-banner {
+    .subtodo-check {
+      width: 12px;
+      height: 12px;
+      background: #000;
+      border: 1px solid #484f58;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 4px;
-    }
-    .rank-badge {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 12px;
+      justify-content: center;
+      font-size: 8.5px;
       color: var(--accent);
-      text-shadow: 1px 1px 0 #000;
+      cursor: pointer;
+      flex-shrink: 0;
     }
+    .subtodo-check.checked { border-color: var(--accent); background: #112717; }
+    .subtodo-text {
+      flex: 1;
+      color: #e6edf3;
+      word-break: break-all;
+    }
+    .subtodo-text.done {
+      text-decoration: line-through;
+      color: #6e7681;
+    }
+    .subtodo-del-btn {
+      color: #f85149;
+      background: none;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+    .subtodo-del-btn:hover { color: #ff7b72; }
 
+    .subtodo-input-row {
+      display: flex;
+      gap: 4px;
+      padding-left: 20px;
+      margin-top: 2px;
+    }
+    .subtodo-input {
+      font-size: 9.5px !important;
+      padding: 2px 5px !important;
+      height: 22px;
+    }
+    .subtodo-add-btn {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: var(--accent);
+      font-size: 10px;
+      padding: 0 6px;
+      cursor: pointer;
+    }
+    .subtodo-add-btn:hover { background: #30363d; }
+
+    /* Review & Logs */
+    .review-box { font-size: 10px; }
+    .score-banner { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .rank-badge { font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent); text-shadow: 1px 1px 0 #000; }
     textarea {
       width: 100%;
       height: 48px;
@@ -401,95 +321,65 @@
       user-select: text;
       -webkit-user-select: text;
     }
-    textarea:focus {
-      border-color: var(--primary);
-    }
-
+    textarea:focus { border-color: var(--primary); }
+    .btn-row { display: flex; gap: 4px; }
     .action-btn {
-      width: 100%;
+      flex: 1;
       background: #21262d;
       border: 1px solid #30363d;
       color: var(--text);
       font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      padding: 7px 4px;
+      font-size: 7.5px;
+      padding: 7px 3px;
       cursor: pointer;
       box-shadow: 2px 2px 0 #000;
     }
-    .action-btn:hover {
-      background: #30363d;
-      color: #fff;
-    }
-    .action-btn:active {
-      transform: translate(1px, 1px);
-      box-shadow: 1px 1px 0 #000;
-    }
+    .action-btn:hover { background: #30363d; color: #fff; }
+    .action-btn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 #000; }
   </style>
 </head>
 <body>
-
-  <!-- Sticky Header -->
   <header>
     <div class="title-row">
       <div class="app-title">★ TIMETAENG</div>
-      <div class="clock-badge" id="liveClock">00:00:00</div>
+      <div class="clock-badge" id="liveClock">--:--:--</div>
     </div>
     <div class="date-status">
-      <span id="dateDisplay">YYYY-MM-DD</span>
+      <span id="dateDisplay">----/--/--</span>
       <span id="statSummary">0 MIN PLANNED</span>
     </div>
   </header>
 
-  <!-- 1. Top Quick Memo Slot (TODAY'S MAIN QUEST / TODO) -->
+  <!-- 1. Top Quick Memo Slot (TODAY'S FOCUS 3줄) -->
   <div class="pixel-box memo-section">
     <div class="section-label">
-      <span>🎯 TODAY'S FOCUS // TODO</span>
-      <span style="font-size: 6.5px; color: var(--text-dim);">AUTO-SAVED</span>
+      <span>🎯 TODAY'S FOCUS</span>
+      <span style="font-size: 6.5px; color: var(--text-dim);">RESET AT 06:00 AM</span>
     </div>
-    <textarea id="mainTodoInput" class="top-memo-input" placeholder="오늘 꼭 끝낼 핵심 할 일 / 키워드 메모..."></textarea>
+    <textarea id="mainTodoInput" class="top-memo-input" placeholder="오늘 꼭 끝낼 핵심 할 일 / 키워드 메모 (최대 3줄)..."></textarea>
   </div>
 
   <!-- 2. Research Brushes -->
   <div class="pixel-box palette-box">
     <div style="color: var(--text-dim); font-size: 8px; margin-bottom: 1px;">RESEARCH QUEST BRUSH</div>
     <div class="chip-grid" id="presetChips">
-      <button class="chip-btn active" data-color="#58a6ff" data-name="논문탱">
-        <span class="chip-dot" style="background:#58a6ff;"></span>논문탱
-      </button>
-      <button class="chip-btn" data-color="#39d353" data-name="코딩탱">
-        <span class="chip-dot" style="background:#39d353;"></span>코딩탱
-      </button>
-      <button class="chip-btn" data-color="#00f2fe" data-name="분석탱">
-        <span class="chip-dot" style="background:#00f2fe;"></span>분석탱
-      </button>
-      <button class="chip-btn" data-color="#bc8cff" data-name="취미탱">
-        <span class="chip-dot" style="background:#bc8cff;"></span>취미탱
-      </button>
-      <button class="chip-btn" data-color="#f1e05a" data-name="회의탱">
-        <span class="chip-dot" style="background:#f1e05a;"></span>회의탱
-      </button>
-      <button class="chip-btn" data-color="#d2a8ff" data-name="잡무탱">
-        <span class="chip-dot" style="background:#d2a8ff;"></span>잡무탱
-      </button>
-      <button class="chip-btn" data-color="#ff7b72" data-name="노는탱">
-        <span class="chip-dot" style="background:#ff7b72;"></span>노는탱
-      </button>
-      <button class="chip-btn" data-color="#ff9b54" data-name="운동탱">
-        <span class="chip-dot" style="background:#ff9b54;"></span>운동탱
-      </button>
+      <button class="chip-btn active" data-color="#58a6ff" data-name="논문탱"><span class="chip-dot" style="background:#58a6ff;"></span>논문탱</button>
+      <button class="chip-btn" data-color="#39d353" data-name="코딩탱"><span class="chip-dot" style="background:#39d353;"></span>코딩탱</button>
+      <button class="chip-btn" data-color="#00f2fe" data-name="분석탱"><span class="chip-dot" style="background:#00f2fe;"></span>분석탱</button>
+      <button class="chip-btn" data-color="#bc8cff" data-name="취미탱"><span class="chip-dot" style="background:#bc8cff;"></span>취미탱</button>
+      <button class="chip-btn" data-color="#f1e05a" data-name="회의탱"><span class="chip-dot" style="background:#f1e05a;"></span>회의탱</button>
+      <button class="chip-btn" data-color="#d2a8ff" data-name="잡무탱"><span class="chip-dot" style="background:#d2a8ff;"></span>잡무탱</button>
+      <button class="chip-btn" data-color="#ff7b72" data-name="노는탱"><span class="chip-dot" style="background:#ff7b72;"></span>노는탱</button>
+      <button class="chip-btn" data-color="#ff9b54" data-name="운동탱"><span class="chip-dot" style="background:#ff9b54;"></span>운동탱</button>
     </div>
-
-    <!-- Custom Task Name & Clear -->
     <div class="custom-input-row">
       <input type="text" id="customTaskInput" placeholder="직접 입력..." value="논문탱">
       <input type="color" id="customColorPicker" value="#58a6ff">
-      <button class="chip-btn" id="eraserBtn" data-color="" data-name="" style="color:#f85149; padding: 3px 6px;">
-        ✕ 지우개
-      </button>
+      <button class="chip-btn" id="eraserBtn" data-color="" data-name="" style="color:#f85149; padding: 3px 6px;">✕ 지우개</button>
     </div>
   </div>
 
-  <!-- 3. 10-Minute Matrix (08:00 - 24:00) -->
+  <!-- 3. Timeline Matrix -->
   <div class="pixel-box">
     <div class="timeline-title">
       <span>TIMELINE [10M / BLOCK]</span>
@@ -498,16 +388,14 @@
     <div class="matrix-container" id="matrixContainer"></div>
   </div>
 
-  <!-- 4. Today's Quest Achievement Checklist -->
+  <!-- 4. Today's Quests & Sub-Checklists -->
   <div class="pixel-box">
     <div class="tasks-header">
       <span>TODAY'S QUESTS</span>
-      <span id="taskCountBadge">0 QUESTS</span>
+      <span id="taskCountBadge">0 / 0 DONE</span>
     </div>
     <div id="taskList">
-      <div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">
-        타임라인 칸을 드래그해서 일정을 채워보세요!
-      </div>
+      <div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">타임라인 칸을 드래그해서 일정을 채워보세요!</div>
     </div>
   </div>
 
@@ -518,47 +406,65 @@
       <span class="rank-badge" id="rankBadge">RANK --</span>
     </div>
     <div style="font-size: 10px; color: var(--text-dim); margin-bottom: 5px; display: flex; justify-content: space-between;">
-      <span>AVG ACHIEVEMENT:</span>
+      <span>CLEAR PROGRESS:</span>
       <strong id="avgScoreDisplay" style="color: var(--accent);">0%</strong>
     </div>
-
     <textarea id="feedbackText" placeholder="오늘 연구 진행 피드백, 디버깅 메모, 내일의 우선순위..."></textarea>
-    <button class="action-btn" onclick="copyDailySummary()">📋 COPY LOG SUMMARY</button>
+    <div class="btn-row">
+      <button class="action-btn" onclick="copyDailySummary()">📋 COPY LOG</button>
+      <button class="action-btn" onclick="downloadDailyLog()" style="color: var(--accent);">💾 SAVE .MD</button>
+    </div>
   </div>
 
   <script>
     const START_HOUR = 8;
     const END_HOUR = 24;
     const TOTAL_HOURS = END_HOUR - START_HOUR;
-    const TOTAL_SLOTS = TOTAL_HOURS * 6; // 96 slots
+    const TOTAL_SLOTS = TOTAL_HOURS * 6;
 
-    let currentBrush = { name: "논문탱", color: "#58a6ff" };
+    let currentBrush = { name: '논문탱', color: '#58a6ff' };
     let isMouseDown = false;
 
-    // Local Date (MacBook System Date)
-    function getLocalDateStr(d = new Date()) {
-      return d.toLocaleDateString('sv-SE');
+    function getTaengDateKey(d = new Date()) {
+      try {
+        const working = new Date(d);
+        if (working.getHours() < 6) { working.setDate(working.getDate() - 1); }
+        return working.toLocaleDateString('sv-SE');
+      } catch(e) {
+        return new Date().toISOString().slice(0, 10);
+      }
     }
-    const todayKey = getLocalDateStr();
 
-    let slotData = JSON.parse(localStorage.getItem(`timetaeng_slots_${todayKey}`)) || {};
-    let taskProgress = JSON.parse(localStorage.getItem(`timetaeng_progress_${todayKey}`)) || {};
-    let savedNote = localStorage.getItem(`timetaeng_note_${todayKey}`) || "";
-    let savedTodo = localStorage.getItem(`timetaeng_main_todo_${todayKey}`) || "";
+    let todayKey = getTaengDateKey();
+    let slotData = {};
+    let taskChecklist = {}; // { taskName: boolean }
+    let subTodos = {};      // { taskName: [ { id, text, done } ] }
 
-    // Load saved focus todo
-    const mainTodoInput = document.getElementById('mainTodoInput');
-    mainTodoInput.value = savedTodo;
-    mainTodoInput.addEventListener('input', (e) => {
-      localStorage.setItem(`timetaeng_main_todo_${todayKey}`, e.target.value);
+    function loadDayData() {
+      try { slotData = JSON.parse(localStorage.getItem('timetaeng_slots_' + todayKey)) || {}; } catch(e) { slotData = {}; }
+      try { taskChecklist = JSON.parse(localStorage.getItem('timetaeng_checked_' + todayKey)) || {}; } catch(e) { taskChecklist = {}; }
+      try { subTodos = JSON.parse(localStorage.getItem('timetaeng_subtodos_' + todayKey)) || {}; } catch(e) { subTodos = {}; }
+
+      const savedNote = localStorage.getItem('timetaeng_note_' + todayKey) || '';
+      const savedTodo = localStorage.getItem('timetaeng_main_todo_' + todayKey) || '';
+
+      const mainTodoEl = document.getElementById('mainTodoInput');
+      if (mainTodoEl) mainTodoEl.value = savedTodo;
+
+      const feedbackEl = document.getElementById('feedbackText');
+      if (feedbackEl) feedbackEl.value = savedNote;
+
+      const dateEl = document.getElementById('dateDisplay');
+      if (dateEl) dateEl.innerText = todayKey;
+    }
+
+    document.getElementById('mainTodoInput')?.addEventListener('input', (e) => {
+      localStorage.setItem('timetaeng_main_todo_' + todayKey, e.target.value);
+    });
+    document.getElementById('feedbackText')?.addEventListener('input', (e) => {
+      localStorage.setItem('timetaeng_note_' + todayKey, e.target.value);
     });
 
-    document.getElementById('feedbackText').value = savedNote;
-    document.getElementById('feedbackText').addEventListener('input', (e) => {
-      localStorage.setItem(`timetaeng_note_${todayKey}`, e.target.value);
-    });
-
-    // 8-bit Audio
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     let actx = null;
     function playBeep(freq = 440, type = 'square', duration = 0.04) {
@@ -591,37 +497,46 @@
       btn.addEventListener('click', () => {
         setActiveBtn(btn);
         currentBrush = { name: btn.dataset.name, color: btn.dataset.color };
-        customInput.value = btn.dataset.name;
-        colorPicker.value = btn.dataset.color;
+        if (customInput) customInput.value = btn.dataset.name;
+        if (colorPicker) colorPicker.value = btn.dataset.color;
         playBeep(580, 'triangle', 0.04);
       });
     });
 
-    eraserBtn.addEventListener('click', () => {
+    eraserBtn?.addEventListener('click', () => {
       setActiveBtn(eraserBtn);
-      currentBrush = { name: "", color: "" };
+      currentBrush = { name: '', color: '' };
       playBeep(220, 'sawtooth', 0.05);
     });
 
-    customInput.addEventListener('input', () => {
+    customInput?.addEventListener('input', () => {
       currentBrush.name = customInput.value.trim();
       setActiveBtn(null);
     });
-    colorPicker.addEventListener('input', () => {
+    colorPicker?.addEventListener('input', () => {
       currentBrush.color = colorPicker.value;
       setActiveBtn(null);
     });
 
-    const matrixContainer = document.getElementById('matrixContainer');
+    function formatSlotTime(idx) {
+      const totalMin = START_HOUR * 60 + idx * 10;
+      const h = Math.floor(totalMin / 60);
+      const m = totalMin % 60;
+      return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+    }
+
     function buildMatrix() {
+      const matrixContainer = document.getElementById('matrixContainer');
+      if (!matrixContainer) return;
       matrixContainer.innerHTML = '';
+
       for (let h = START_HOUR; h < END_HOUR; h++) {
         const row = document.createElement('div');
         row.className = 'hour-row';
 
         const label = document.createElement('div');
         label.className = 'hour-label';
-        label.innerText = `${String(h).padStart(2, '0')}:00`;
+        label.innerText = String(h).padStart(2, '0') + ':00';
         row.appendChild(label);
 
         const slotRow = document.createElement('div');
@@ -631,11 +546,11 @@
           const slotIdx = (h - START_HOUR) * 6 + s;
           const slot = document.createElement('div');
           slot.className = 'slot';
-          slot.id = `slot-${slotIdx}`;
+          slot.id = 'slot-' + slotIdx;
 
-          if (slotData[slotIdx]) {
+          if (slotData && slotData[slotIdx]) {
             slot.style.backgroundColor = slotData[slotIdx].color;
-            slot.title = `${slotData[slotIdx].name} (${formatSlotTime(slotIdx)})`;
+            slot.title = slotData[slotIdx].name + ' (' + formatSlotTime(slotIdx) + ')';
           }
 
           slot.addEventListener('mousedown', () => {
@@ -648,7 +563,6 @@
 
           slotRow.appendChild(slot);
         }
-
         row.appendChild(slotRow);
         matrixContainer.appendChild(row);
       }
@@ -656,15 +570,10 @@
 
     window.addEventListener('mouseup', () => { isMouseDown = false; });
 
-    function formatSlotTime(idx) {
-      const totalMin = START_HOUR * 60 + idx * 10;
-      const h = Math.floor(totalMin / 60);
-      const m = totalMin % 60;
-      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-    }
-
     function paintSlot(idx) {
-      const slot = document.getElementById(`slot-${idx}`);
+      const slot = document.getElementById('slot-' + idx);
+      if (!slot) return;
+
       if (!currentBrush.name || !currentBrush.color) {
         delete slotData[idx];
         slot.style.backgroundColor = '';
@@ -673,116 +582,183 @@
       } else {
         slotData[idx] = { name: currentBrush.name, color: currentBrush.color };
         slot.style.backgroundColor = currentBrush.color;
-        slot.title = `${currentBrush.name} (${formatSlotTime(idx)})`;
+        slot.title = currentBrush.name + ' (' + formatSlotTime(idx) + ')';
         playBeep(620, 'square', 0.03);
       }
-      localStorage.setItem(`timetaeng_slots_${todayKey}`, JSON.stringify(slotData));
+      localStorage.setItem('timetaeng_slots_' + todayKey, JSON.stringify(slotData));
       updateTasks();
       updateClockAndStatuses();
     }
 
+    // Toggle Main Quest Checklist
+    window.toggleMainQuestCheck = function(name) {
+      taskChecklist[name] = !taskChecklist[name];
+      localStorage.setItem('timetaeng_checked_' + todayKey, JSON.stringify(taskChecklist));
+      if (taskChecklist[name]) { playBeep(880, 'square', 0.06); }
+      else { playBeep(330, 'triangle', 0.04); }
+      updateTasks();
+    };
+
+    // Sub-Todo Handlers
+    window.addSubTodo = function(questName) {
+      const inputEl = document.getElementById('subinput-' + CSS.escape(questName));
+      if (!inputEl) return;
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      if (!subTodos[questName]) subTodos[questName] = [];
+      subTodos[questName].push({ id: Date.now(), text: text, done: false });
+      localStorage.setItem('timetaeng_subtodos_' + todayKey, JSON.stringify(subTodos));
+      inputEl.value = '';
+      playBeep(700, 'triangle', 0.03);
+      updateTasks();
+    };
+
+    window.toggleSubTodo = function(questName, id) {
+      if (!subTodos[questName]) return;
+      const item = subTodos[questName].find(t => t.id === id);
+      if (item) {
+        item.done = !item.done;
+        localStorage.setItem('timetaeng_subtodos_' + todayKey, JSON.stringify(subTodos));
+        if (item.done) playBeep(880, 'square', 0.05);
+        else playBeep(330, 'triangle', 0.04);
+        updateTasks();
+      }
+    };
+
+    window.deleteSubTodo = function(questName, id) {
+      if (!subTodos[questName]) return;
+      subTodos[questName] = subTodos[questName].filter(t => t.id !== id);
+      localStorage.setItem('timetaeng_subtodos_' + todayKey, JSON.stringify(subTodos));
+      playBeep(240, 'sawtooth', 0.04);
+      updateTasks();
+    };
+
     function updateTasks() {
       const taskListEl = document.getElementById('taskList');
-      const counts = {};
+      if (!taskListEl) return;
 
-      Object.values(slotData).forEach(item => {
-        if (!item.name) return;
-        if (!counts[item.name]) {
-          counts[item.name] = { count: 0, color: item.color };
-        }
+      const counts = {};
+      Object.values(slotData || {}).forEach(item => {
+        if (!item || !item.name) return;
+        if (!counts[item.name]) { counts[item.name] = { count: 0, color: item.color }; }
         counts[item.name].count++;
       });
 
       const taskNames = Object.keys(counts);
-      document.getElementById('taskCountBadge').innerText = `${taskNames.length} QUESTS`;
-
       let totalMinutes = 0;
       taskNames.forEach(name => totalMinutes += counts[name].count * 10);
-      document.getElementById('statSummary').innerText = `${totalMinutes} MIN PLANNED`;
+
+      const statSummaryEl = document.getElementById('statSummary');
+      if (statSummaryEl) statSummaryEl.innerText = totalMinutes + ' MIN PLANNED';
 
       if (taskNames.length === 0) {
-        taskListEl.innerHTML = `
-          <div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">
-            타임라인 칸을 드래그해서 일정을 채워보세요!
-          </div>
-        `;
+        taskListEl.innerHTML = '<div style="font-size: 10px; color: var(--text-dim); text-align: center; padding: 10px 0;">타임라인 칸을 드래그해서 일정을 채워보세요!</div>';
+        document.getElementById('taskCountBadge').innerText = '0 / 0 DONE';
         document.getElementById('rankBadge').innerText = 'RANK --';
         document.getElementById('avgScoreDisplay').innerText = '0%';
         return;
       }
 
       taskListEl.innerHTML = '';
-      let sumPct = 0;
+      let totalUnits = 0;
+      let doneUnits = 0;
 
       taskNames.forEach(name => {
         const item = counts[name];
         const minutes = item.count * 10;
-        const currentVal = taskProgress[name] !== undefined ? taskProgress[name] : 0;
-        sumPct += Number(currentVal);
+        const questSubList = subTodos[name] || [];
+        const isMainDone = !!taskChecklist[name];
+
+        // 가중치 계산: 서브투두가 있으면 서브투두 개수로 집계, 없으면 대분류 1개로 집계
+        if (questSubList.length > 0) {
+          totalUnits += questSubList.length;
+          doneUnits += questSubList.filter(st => st.done).length;
+        } else {
+          totalUnits += 1;
+          if (isMainDone) doneUnits += 1;
+        }
 
         const card = document.createElement('div');
-        card.className = 'task-item';
+        card.className = 'quest-card';
+
+        // 서브투두 리스트 HTML 생성
+        let subTodosHtml = '';
+        if (questSubList.length > 0) {
+          subTodosHtml = '<div class="subtodo-list">';
+          questSubList.forEach(st => {
+            subTodosHtml += `
+              <div class="subtodo-item">
+                <div class="subtodo-check ${st.done ? 'checked' : ''}" onclick="toggleSubTodo('${CSS.escape(name)}', ${st.id})">
+                  ${st.done ? '✔' : ''}
+                </div>
+                <span class="subtodo-text ${st.done ? 'done' : ''}">${st.text}</span>
+                <button class="subtodo-del-btn" onclick="deleteSubTodo('${CSS.escape(name)}', ${st.id})">✕</button>
+              </div>
+            `;
+          });
+          subTodosHtml += '</div>';
+        }
+
         card.innerHTML = `
-          <div class="task-meta">
-            <span class="task-badge">
+          <div class="quest-header">
+            <div class="quest-left" onclick="toggleMainQuestCheck('${CSS.escape(name)}')">
+              <div class="pixel-checkbox ${isMainDone ? 'checked' : ''}">
+                ${isMainDone ? '✔' : ''}
+              </div>
               <span style="display:inline-block; width:8px; height:8px; background:${item.color}; border:1px solid #000;"></span>
-              ${name}
-            </span>
-            <span class="task-dur">${minutes}m (${item.count}칸)</span>
-          </div>
-          <div class="slider-row">
-            <input type="range" min="0" max="100" value="${currentVal}" id="slider-${CSS.escape(name)}">
-            <span class="pct-val" id="val-${CSS.escape(name)}">${currentVal}%</span>
-            <div class="quick-btns">
-              <button class="mini-btn" onclick="setTaskPct('${name}', 50)">50%</button>
-              <button class="mini-btn" onclick="setTaskPct('${name}', 100)">100%</button>
+              <span class="quest-name ${isMainDone ? 'done' : ''}">${name}</span>
             </div>
+            <div style="font-size: 9.5px; color: var(--text-dim);">
+              <span>${minutes}m (${item.count}칸)</span>
+            </div>
+          </div>
+          ${subTodosHtml}
+          <div class="subtodo-input-row">
+            <input type="text" class="subtodo-input" id="subinput-${CSS.escape(name)}" placeholder="세부 할 일 (To-Do) 추가..." onkeydown="if(event.key==='Enter') addSubTodo('${CSS.escape(name)}')">
+            <button class="subtodo-add-btn" onclick="addSubTodo('${CSS.escape(name)}')">+</button>
           </div>
         `;
         taskListEl.appendChild(card);
-
-        const slider = card.querySelector(`#slider-${CSS.escape(name)}`);
-        slider.addEventListener('input', (e) => {
-          setTaskPct(name, e.target.value);
-        });
       });
 
-      const avg = Math.round(sumPct / taskNames.length);
-      document.getElementById('avgScoreDisplay').innerText = `${avg}%`;
+      document.getElementById('taskCountBadge').innerText = `${doneUnits} / ${totalUnits} DONE`;
+
+      const pct = totalUnits > 0 ? Math.round((doneUnits / totalUnits) * 100) : 0;
+      document.getElementById('avgScoreDisplay').innerText = pct + '%';
 
       let rank = 'RANK D';
-      if (avg >= 95) rank = 'RANK S [GOD]';
-      else if (avg >= 80) rank = 'RANK A [PRO]';
-      else if (avg >= 60) rank = 'RANK B [GOOD]';
-      else if (avg >= 40) rank = 'RANK C [FAIR]';
+      if (pct === 100) rank = 'RANK S [ALL CLEAR]';
+      else if (pct >= 75) rank = 'RANK A [EXCELLENT]';
+      else if (pct >= 50) rank = 'RANK B [GOOD]';
+      else if (pct >= 25) rank = 'RANK C [FAIR]';
       document.getElementById('rankBadge').innerText = rank;
     }
 
-    window.setTaskPct = function(name, val) {
-      taskProgress[name] = Number(val);
-      localStorage.setItem(`timetaeng_progress_${todayKey}`, JSON.stringify(taskProgress));
-      const valEl = document.getElementById(`val-${CSS.escape(name)}`);
-      const sliderEl = document.getElementById(`slider-${CSS.escape(name)}`);
-      if (valEl) valEl.innerText = `${val}%`;
-      if (sliderEl) sliderEl.value = val;
-      playBeep(750, 'triangle', 0.03);
-      updateTasks();
-    };
-
     function updateClockAndStatuses() {
       const now = new Date();
+      const currentDayKey = getTaengDateKey(now);
+
+      if (currentDayKey !== todayKey) {
+        todayKey = currentDayKey;
+        loadDayData();
+        buildMatrix();
+        updateTasks();
+      }
+
       const h = now.getHours();
       const m = now.getMinutes();
       const s = now.getSeconds();
 
-      document.getElementById('liveClock').innerText = 
-        `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-      document.getElementById('dateDisplay').innerText = getLocalDateStr(now);
+      const liveClockEl = document.getElementById('liveClock');
+      if (liveClockEl) {
+        liveClockEl.innerText = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      }
 
       const currentSlotIdx = (h - START_HOUR) * 6 + Math.floor(m / 10);
 
       for (let i = 0; i < TOTAL_SLOTS; i++) {
-        const slotEl = document.getElementById(`slot-${i}`);
+        const slotEl = document.getElementById('slot-' + i);
         if (!slotEl) continue;
 
         if (i < currentSlotIdx) {
@@ -798,45 +774,78 @@
       }
     }
 
-    window.copyDailySummary = function() {
-      const todo = document.getElementById('mainTodoInput').value;
-      const note = document.getElementById('feedbackText').value;
-      const avg = document.getElementById('avgScoreDisplay').innerText;
-      const rank = document.getElementById('rankBadge').innerText;
-      
+    function generateLogText() {
+      const todo = document.getElementById('mainTodoInput')?.value || '';
+      const note = document.getElementById('feedbackText')?.value || '';
+      const avg = document.getElementById('avgScoreDisplay')?.innerText || '0%';
+      const rank = document.getElementById('rankBadge')?.innerText || 'RANK --';
+
       let lines = [];
-      lines.push(`[★ TIMETAENG DAILY REPORT] ${todayKey}`);
-      lines.push(`OVERALL RATING: ${avg} (${rank})`);
+      lines.push('# 👾 TIMETAENG DAILY LOG [' + todayKey + ']');
+      lines.push('- **CLEAR RATING**: ' + avg + ' (' + rank + ')');
+      lines.push('- **TIMESTAMP**: ' + new Date().toLocaleTimeString());
+      lines.push('');
 
       if (todo.trim()) {
-        lines.push(`------------------------------`);
-        lines.push(`[TODAY'S MAIN FOCUS]\n${todo.trim()}`);
+        lines.push('## 🎯 TODAY\'S FOCUS');
+        lines.push(todo.trim());
+        lines.push('');
       }
 
-      lines.push(`==============================`);
-      
+      lines.push('## 🕹️ TODAY\'S QUEST & TO-DO CHECKLIST');
       const counts = {};
-      Object.values(slotData).forEach(item => {
-        if (!item.name) return;
+      Object.values(slotData || {}).forEach(item => {
+        if (!item || !item.name) return;
         counts[item.name] = (counts[item.name] || 0) + 10;
       });
 
-      Object.keys(counts).forEach(name => {
-        const pct = taskProgress[name] !== undefined ? taskProgress[name] : 0;
-        lines.push(`• [${name}] 계획: ${counts[name]}분 -> 달성: ${pct}%`);
-      });
+      const names = Object.keys(counts);
+      if (names.length === 0) {
+        lines.push('*(등록된 퀘스트 없음)*');
+      } else {
+        names.forEach(name => {
+          const isMainDone = !!taskChecklist[name];
+          const questSubList = subTodos[name] || [];
+          lines.push(`- [${isMainDone ? 'x' : ' '}] **${name}** (${counts[name]}분 계획)`);
+          if (questSubList.length > 0) {
+            questSubList.forEach(st => {
+              lines.push(`    - [${st.done ? 'x' : ' '}] ${st.text}`);
+            });
+          }
+        });
+      }
+      lines.push('');
 
       if (note.trim()) {
-        lines.push(`==============================`);
-        lines.push(`MEMO & FEEDBACK:\n${note.trim()}`);
+        lines.push('## 📝 MEMO & LAB LOG');
+        lines.push(note.trim());
+        lines.push('');
       }
+      lines.push('---');
+      return lines.join('\n');
+    }
 
-      navigator.clipboard.writeText(lines.join('\n')).then(() => {
-        alert("오늘의 타임탱 리포트가 클립보드에 복사되었습니다!");
+    window.copyDailySummary = function() {
+      const text = generateLogText();
+      navigator.clipboard.writeText(text).then(() => {
+        alert('오늘의 타임탱 리포트가 클립보드에 복사되었습니다!');
         playBeep(880, 'sine', 0.08);
       });
     };
 
+    window.downloadDailyLog = function() {
+      const text = generateLogText();
+      const blob = new Blob([text], { type: 'text/markdown;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = todayKey + '_TimeTaeng_Log.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      playBeep(980, 'triangle', 0.09);
+    };
+
+    loadDayData();
     buildMatrix();
     updateTasks();
     updateClockAndStatuses();
