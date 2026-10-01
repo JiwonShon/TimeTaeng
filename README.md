@@ -1,25 +1,27 @@
-
 # 👾 TimeTaeng
 
 > **A Lightweight 10-Minute Retro Dock Scheduler for Researchers & Builders**  
-> An 8-bit aesthetic 10-minute time-boxing desktop widget designed for focused research deep work, seamless task tracking, and daily arcade ratings.
+> An 8-bit aesthetic 10-minute time-boxing desktop widget designed for focused deep work, hierarchical sub-task checklists, and daily arcade ratings.
 
 ---
 
 ## ✨ Key Features
 
-- ⏱️ **10-Min Block Matrix (08:00 - 24:00)**: Visualizes 16 daily hours into 96 responsive pixel blocks for precise, intuitive time-boxing.
-- 🎨 **Researcher Quest Palettes**: Built-in 8-preset brush chips tailored for researchers (`Paper`, `Code`, `Data`, `Write`, `Meet`, `Duty`, `Rest`, `Fit`).
-- 🕹️ **Real-Time Auto Gray-out**: Automatically syncs with local system time. Elapsed blocks gray out with retro scanlines; the active block glows with an animated pulse.
-- 📊 **Quest Checklist & Achievement Slider**: Aggregates scheduled tasks automatically. Log real-time progress from 0% to 100% with interactive sliders.
-- 🏆 **Daily Arcade Rating (Rank S ~ D)**: Automatically scores your daily average productivity and provides one-click markdown clipboard export for lab logs and daily reviews.
-- 💾 **100% Local & Lightweight**: Zero server or cloud dependencies. Runs entirely inside a single HTML file with browser `localStorage`.
+- ⏱️ **10-Min Block Matrix (08:00 - 24:00)**: Visualizes 16 working hours into 96 responsive pixel blocks for intuitive, tactile time-boxing.
+- 🎯 **Today's Focus Memo**: Keep your high-level priorities visible without cluttering your workspace.
+- 🎨 **Researcher Quest Palettes**: 8 built-in research preset brushes (`Paper`, `Code`, `Data`, `Hobby`, `Meet`, `Duty`, `Play`, `Fit`) plus custom palette entries.
+- 🕹️ **Real-Time Auto Gray-out & Audio**: Automatically syncs with local time; elapsed blocks gray out with retro scanlines while the active block glows with an animated pulse. Enjoy satisfying 8-bit chip audio feedback.
+- ✅ **Dynamic Sub-Task Checklists**: Break down scheduled research blocks (e.g., `DataTaeng`) into granular, executable To-Do items with interactive pixel checkboxes.
+- ⏰ **Night-Owl 06:00 AM Auto-Reset**: Perfect for night-owl researchers. Schedules stay continuous through midnight and automatically refresh at **06:00 AM** every morning for a clean start.
+- 🏆 **Daily Arcade Rating (Rank S ~ D)**: Automatically scores your progress and calculates completion rates in real time.
+- 📝 **Markdown & File Export**: Copy formatted daily summaries (`- [x]` checklists + lab notes) straight to your clipboard, or save a timestamped `.md` log with a single click.
+- 💾 **100% Local & Lightweight**: Zero external server dependencies or cloud bloat. Operates entirely via vanilla JS and browser `localStorage`.
 
 ---
 
 ## 🚀 Quick Start (macOS Desktop App)
 
-Build and install the native standalone macOS desktop app in seconds without any external dependencies:
+Build and run the native standalone macOS sidebar app (docked at a compact 330×960 screen ratio) in seconds:
 
 ```bash
 # 1. Clone the repository
