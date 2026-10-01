@@ -50,8 +50,8 @@
       background: var(--card-bg);
       border: 2px solid var(--border-dark);
       box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.08), 2px 2px 0px #000;
-      padding: 8px;
-      margin: 4px 6px;
+      padding: 5px 7px;
+      margin: 1px 6px;
     }
     header {
       background: #090d13;
@@ -78,7 +78,24 @@
       font-variant-numeric: tabular-nums;
     }
     .date-status { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-dim); }
-    .memo-section { background: #11161d; }
+    
+    /* Top Focus Note Slot (3 lines & compact margin) */
+    .memo-section { 
+      background: #11161d; 
+      margin-bottom: 0px !important;
+      padding-bottom: 2px !important;
+    }
+    .top-memo-input {
+      margin-bottom: 0 !important;
+    }
+    .palette-box { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 3px; 
+      font-size: 10px; 
+      margin-top: 0px !important;
+      padding-top: 3px !important;
+    } 
     .section-label {
       font-family: 'Press Start 2P', monospace;
       font-size: 7.5px;
@@ -90,22 +107,23 @@
     }
     .top-memo-input {
       width: 100%;
-      height: 38px;
+      height: 60px;
       background: #090d13;
       border: 1px solid #30363d;
       color: #7ee787;
       font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
-      padding: 5px 7px;
+      padding: 6px 8px;
       resize: none;
       outline: none;
-      line-height: 1.35;
+      line-height: 1.4;
       user-select: text;
       -webkit-user-select: text;
     }
     .top-memo-input:focus { border-color: var(--accent); box-shadow: 0 0 4px rgba(57, 211, 83, 0.3); }
     .top-memo-input::placeholder { color: #484f58; font-size: 10px; }
-    .palette-box { display: flex; flex-direction: column; gap: 5px; font-size: 10px; }
+
+    /* Palette */
     .chip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
     .chip-btn {
       font-family: 'Share Tech Mono', monospace;
@@ -150,6 +168,8 @@
     }
     input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
     input[type="color"]::-webkit-color-swatch { border: none; }
+
+    /* Timeline */
     .timeline-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 8px;
@@ -175,22 +195,29 @@
       z-index: 11;
     }
     @keyframes pixel-pulse { 0% { box-shadow: 0 0 2px #fff; } 100% { box-shadow: 0 0 7px var(--accent); } }
+
+    /* Today's Quests & Sub-Todos */
     .tasks-header { font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--warning); margin-bottom: 6px; display: flex; justify-content: space-between; }
-    .task-item {
+    .quest-card {
       background: #0d1117;
       border: 1px solid #30363d;
-      padding: 6px 8px;
-      margin-bottom: 4px;
+      padding: 6px 7px;
+      margin-bottom: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .quest-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
-      transition: background 0.15s ease;
     }
-    .task-item:hover { background: #161b22; }
-    .task-item.done { border-color: #238636; background: rgba(35, 134, 54, 0.15); }
-    .task-item.done .task-name { text-decoration: line-through; color: var(--text-dim); }
-    .task-left { display: flex; align-items: center; gap: 7px; }
+    .quest-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
     .pixel-checkbox {
       width: 14px;
       height: 14px;
@@ -202,9 +229,79 @@
       font-size: 10px;
       color: var(--accent);
       font-weight: bold;
+      flex-shrink: 0;
     }
-    .task-item.done .pixel-checkbox { border-color: var(--accent); background: #112717; }
-    .task-meta-right { display: flex; align-items: center; gap: 6px; font-size: 9.5px; color: var(--text-dim); }
+    .pixel-checkbox.checked { border-color: var(--accent); background: #112717; }
+    .quest-name { font-weight: bold; font-size: 11px; }
+    .quest-name.done { text-decoration: line-through; color: var(--text-dim); }
+
+    .subtodo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding-left: 20px;
+    }
+    .subtodo-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+    }
+    .subtodo-check {
+      width: 12px;
+      height: 12px;
+      background: #000;
+      border: 1px solid #484f58;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8.5px;
+      color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .subtodo-check.checked { border-color: var(--accent); background: #112717; }
+    .subtodo-text {
+      flex: 1;
+      color: #e6edf3;
+      word-break: break-all;
+    }
+    .subtodo-text.done {
+      text-decoration: line-through;
+      color: #6e7681;
+    }
+    .subtodo-del-btn {
+      color: #f85149;
+      background: none;
+      border: none;
+      font-size: 10px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+    .subtodo-del-btn:hover { color: #ff7b72; }
+
+    .subtodo-input-row {
+      display: flex;
+      gap: 4px;
+      padding-left: 20px;
+      margin-top: 2px;
+    }
+    .subtodo-input {
+      font-size: 9.5px !important;
+      padding: 2px 5px !important;
+      height: 22px;
+    }
+    .subtodo-add-btn {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: var(--accent);
+      font-size: 10px;
+      padding: 0 6px;
+      cursor: pointer;
+    }
+    .subtodo-add-btn:hover { background: #30363d; }
+
+    /* Review & Logs */
     .review-box { font-size: 10px; }
     .score-banner { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
     .rank-badge { font-family: 'Press Start 2P', monospace; font-size: 12px; color: var(--accent); text-shadow: 1px 1px 0 #000; }
@@ -252,14 +349,16 @@
     </div>
   </header>
 
+  <!-- 1. Top Quick Memo Slot (TODAY'S FOCUS 3 lines) -->
   <div class="pixel-box memo-section">
     <div class="section-label">
-      <span>🎯 TODAY'S FOCUS // TODO</span>
+      <span>🎯 TODAY'S FOCUS</span>
       <span style="font-size: 6.5px; color: var(--text-dim);">RESET AT 06:00 AM</span>
     </div>
-    <textarea id="mainTodoInput" class="top-memo-input" placeholder="Primary quest / core deliverables for today..."></textarea>
+    <textarea id="mainTodoInput" class="top-memo-input" placeholder="Primary quests / core deliverables for today (up to 3 lines)..."></textarea>
   </div>
 
+  <!-- 2. Research Brushes -->
   <div class="pixel-box palette-box">
     <div style="color: var(--text-dim); font-size: 8px; margin-bottom: 1px;">RESEARCH QUEST BRUSH</div>
     <div class="chip-grid" id="presetChips">
@@ -279,6 +378,7 @@
     </div>
   </div>
 
+  <!-- 3. Timeline Matrix -->
   <div class="pixel-box">
     <div class="timeline-title">
       <span>TIMELINE [10M / BLOCK]</span>
@@ -287,6 +387,7 @@
     <div class="matrix-container" id="matrixContainer"></div>
   </div>
 
+  <!-- 4. Today's Quests & Sub-Checklists -->
   <div class="pixel-box">
     <div class="tasks-header">
       <span>TODAY'S QUESTS</span>
@@ -297,6 +398,7 @@
     </div>
   </div>
 
+  <!-- 5. Daily Review & Retro Score -->
   <div class="pixel-box review-box">
     <div class="score-banner">
       <span style="font-family: 'Press Start 2P', monospace; font-size: 8px; color: var(--text-dim);">DAILY RATING</span>
@@ -325,9 +427,7 @@
     function getTaengDateKey(d = new Date()) {
       try {
         const working = new Date(d);
-        if (working.getHours() < 6) {
-          working.setDate(working.getDate() - 1);
-        }
+        if (working.getHours() < 6) { working.setDate(working.getDate() - 1); }
         return working.toLocaleDateString('sv-SE');
       } catch(e) {
         return new Date().toISOString().slice(0, 10);
@@ -337,10 +437,12 @@
     let todayKey = getTaengDateKey();
     let slotData = {};
     let taskChecklist = {};
+    let subTodos = {};
 
     function loadDayData() {
       try { slotData = JSON.parse(localStorage.getItem('timetaeng_en_slots_' + todayKey)) || {}; } catch(e) { slotData = {}; }
       try { taskChecklist = JSON.parse(localStorage.getItem('timetaeng_en_checked_' + todayKey)) || {}; } catch(e) { taskChecklist = {}; }
+      try { subTodos = JSON.parse(localStorage.getItem('timetaeng_en_subtodos_' + todayKey)) || {}; } catch(e) { subTodos = {}; }
 
       const savedNote = localStorage.getItem('timetaeng_en_note_' + todayKey) || '';
       const savedTodo = localStorage.getItem('timetaeng_en_main_todo_' + todayKey) || '';
@@ -487,11 +589,45 @@
       updateClockAndStatuses();
     }
 
-    window.toggleTaskCheck = function(name) {
+    window.toggleMainQuestCheck = function(name) {
       taskChecklist[name] = !taskChecklist[name];
       localStorage.setItem('timetaeng_en_checked_' + todayKey, JSON.stringify(taskChecklist));
       if (taskChecklist[name]) { playBeep(880, 'square', 0.06); }
       else { playBeep(330, 'triangle', 0.04); }
+      updateTasks();
+    };
+
+    window.addSubTodo = function(questName) {
+      const inputEl = document.getElementById('subinput-' + CSS.escape(questName));
+      if (!inputEl) return;
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      if (!subTodos[questName]) subTodos[questName] = [];
+      subTodos[questName].push({ id: Date.now(), text: text, done: false });
+      localStorage.setItem('timetaeng_en_subtodos_' + todayKey, JSON.stringify(subTodos));
+      inputEl.value = '';
+      playBeep(700, 'triangle', 0.03);
+      updateTasks();
+    };
+
+    window.toggleSubTodo = function(questName, id) {
+      if (!subTodos[questName]) return;
+      const item = subTodos[questName].find(t => t.id === id);
+      if (item) {
+        item.done = !item.done;
+        localStorage.setItem('timetaeng_en_subtodos_' + todayKey, JSON.stringify(subTodos));
+        if (item.done) playBeep(880, 'square', 0.05);
+        else playBeep(330, 'triangle', 0.04);
+        updateTasks();
+      }
+    };
+
+    window.deleteSubTodo = function(questName, id) {
+      if (!subTodos[questName]) return;
+      subTodos[questName] = subTodos[questName].filter(t => t.id !== id);
+      localStorage.setItem('timetaeng_en_subtodos_' + todayKey, JSON.stringify(subTodos));
+      playBeep(240, 'sawtooth', 0.04);
       updateTasks();
     };
 
@@ -522,33 +658,68 @@
       }
 
       taskListEl.innerHTML = '';
-      let doneCount = 0;
+      let totalUnits = 0;
+      let doneUnits = 0;
 
       taskNames.forEach(name => {
         const item = counts[name];
         const minutes = item.count * 10;
-        const isDone = !!taskChecklist[name];
-        if (isDone) doneCount++;
+        const questSubList = subTodos[name] || [];
+        const isMainDone = !!taskChecklist[name];
+
+        if (questSubList.length > 0) {
+          totalUnits += questSubList.length;
+          doneUnits += questSubList.filter(st => st.done).length;
+        } else {
+          totalUnits += 1;
+          if (isMainDone) doneUnits += 1;
+        }
 
         const card = document.createElement('div');
-        card.className = 'task-item ' + (isDone ? 'done' : '');
-        card.onclick = () => toggleTaskCheck(name);
+        card.className = 'quest-card';
+
+        let subTodosHtml = '';
+        if (questSubList.length > 0) {
+          subTodosHtml = '<div class="subtodo-list">';
+          questSubList.forEach(st => {
+            subTodosHtml += `
+              <div class="subtodo-item">
+                <div class="subtodo-check ${st.done ? 'checked' : ''}" onclick="toggleSubTodo('${CSS.escape(name)}', ${st.id})">
+                  ${st.done ? '✔' : ''}
+                </div>
+                <span class="subtodo-text ${st.done ? 'done' : ''}">${st.text}</span>
+                <button class="subtodo-del-btn" onclick="deleteSubTodo('${CSS.escape(name)}', ${st.id})">✕</button>
+              </div>
+            `;
+          });
+          subTodosHtml += '</div>';
+        }
+
         card.innerHTML = `
-          <div class="task-left">
-            <div class="pixel-checkbox">${isDone ? '✔' : ''}</div>
-            <span style="display:inline-block; width:8px; height:8px; background:${item.color}; border:1px solid #000;"></span>
-            <span class="task-name" style="font-weight:bold; font-size:11px;">${name}</span>
+          <div class="quest-header">
+            <div class="quest-left" onclick="toggleMainQuestCheck('${CSS.escape(name)}')">
+              <div class="pixel-checkbox ${isMainDone ? 'checked' : ''}">
+                ${isMainDone ? '✔' : ''}
+              </div>
+              <span style="display:inline-block; width:8px; height:8px; background:${item.color}; border:1px solid #000;"></span>
+              <span class="quest-name ${isMainDone ? 'done' : ''}">${name}</span>
+            </div>
+            <div style="font-size: 9.5px; color: var(--text-dim);">
+              <span>${minutes}m (${item.count} blocks)</span>
+            </div>
           </div>
-          <div class="task-meta-right">
-            <span>${minutes}m (${item.count} blocks)</span>
+          ${subTodosHtml}
+          <div class="subtodo-input-row">
+            <input type="text" class="subtodo-input" id="subinput-${CSS.escape(name)}" placeholder="Add specific sub-task..." onkeydown="if(event.key==='Enter') addSubTodo('${CSS.escape(name)}')">
+            <button class="subtodo-add-btn" onclick="addSubTodo('${CSS.escape(name)}')">+</button>
           </div>
         `;
         taskListEl.appendChild(card);
       });
 
-      document.getElementById('taskCountBadge').innerText = doneCount + ' / ' + taskNames.length + ' DONE';
+      document.getElementById('taskCountBadge').innerText = `${doneUnits} / ${totalUnits} DONE`;
 
-      const pct = Math.round((doneCount / taskNames.length) * 100);
+      const pct = totalUnits > 0 ? Math.round((doneUnits / totalUnits) * 100) : 0;
       document.getElementById('avgScoreDisplay').innerText = pct + '%';
 
       let rank = 'RANK D';
@@ -611,12 +782,12 @@
       lines.push('');
 
       if (todo.trim()) {
-        lines.push('## 🎯 TODAY\'S FOCUS // TODO');
+        lines.push('## 🎯 TODAY\'S FOCUS');
         lines.push(todo.trim());
         lines.push('');
       }
 
-      lines.push('## 🕹️ TODAY\'S QUEST CHECKLIST');
+      lines.push('## 🕹️ TODAY\'S QUEST & TO-DO CHECKLIST');
       const counts = {};
       Object.values(slotData || {}).forEach(item => {
         if (!item || !item.name) return;
@@ -628,14 +799,20 @@
         lines.push('*(No quests scheduled)*');
       } else {
         names.forEach(name => {
-          const isDone = !!taskChecklist[name];
-          lines.push('- [' + (isDone ? 'x' : ' ') + '] **' + name + '**: ' + counts[name] + 'm planned ' + (isDone ? '➔ [CLEAR ✔]' : '➔ [PENDING]'));
+          const isMainDone = !!taskChecklist[name];
+          const questSubList = subTodos[name] || [];
+          lines.push(`- [${isMainDone ? 'x' : ' '}] **${name}** (${counts[name]}m planned)`);
+          if (questSubList.length > 0) {
+            questSubList.forEach(st => {
+              lines.push(`    - [${st.done ? 'x' : ' '}] ${st.text}`);
+            });
+          }
         });
       }
       lines.push('');
 
       if (note.trim()) {
-        lines.push('## 📝 MEMO & REFLECTION');
+        lines.push('## 📝 MEMO & LAB LOG');
         lines.push(note.trim());
         lines.push('');
       }
